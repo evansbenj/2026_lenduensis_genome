@@ -14,3 +14,19 @@ lendu_hifiasm.bp.hap1.p_ctg.fa  FASTA   DNA    120,309  6,104,902,235    1,372  
 ```
 
 Hifiasm is longer but with more scaffolds and lower N50.
+
+
+# kmerz in windows
+
+split the windows.fa into smaller filez
+```
+N=$(grep -c '^>' windows.fa)
+PER=$(( (N + 49) / 50 ))
+awk -v per="$PER" '
+/^>/ {
+rec++
+file=sprintf("split_%02d.fa", int((rec-1)/per)+1)
+}
+{ print >> file }
+' windows.fa
+```
