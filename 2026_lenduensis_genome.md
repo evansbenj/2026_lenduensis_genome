@@ -18,6 +18,13 @@ Hifiasm is longer but with more scaffolds and lower N50.
 
 # kmerz in windows
 
+Make genomic windows:
+```
+cut -f1,2 lendu_hifiasm.bp.hap1.p_ctg.fa.fai > genome.sizes
+WINDOW=100000
+bedtools makewindows -g genome.sizes -w $WINDOW > windows.bed
+bedtools getfasta -fi lendu_hifiasm.bp.hap1.p_ctg.fa -bed windows.bed -fo windows.fa
+```
 split the windows.fa into smaller filez
 ```
 N=$(grep -c '^>' windows.fa)
