@@ -39,7 +39,21 @@ file=sprintf("split_%02d.fa", int((rec-1)/per)+1)
 ```
 # make smaller windowz
 ```
-
+awk -v N=50 '
+BEGIN {
+    file=1;
+    perfile=7240;
+}
+/^>/ {
+    if (++n > perfile && file < N) {
+        file++;
+        n=1;
+    }
+}
+{
+    print > sprintf("split_%02d.fa", file);
+}
+' input.fa
 ```
 
 # Do intersectionz
