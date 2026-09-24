@@ -153,3 +153,17 @@ END {
     printf "95%%CI\t%.10f\t%.10f\n", ci_low, ci_high
 }' file.txt
 ```
+# Concatenate countz
+```
+cat *counts.txt > all_countz.txt
+```
+
+# Summarize counts:
+```
+awk '{
+  split($1,a,":");
+  split(a[2],b,"-");
+  len=b[2]-b[1];
+  print $0, $2/len
+}' all_countz.txt | sort -k3,3nr | head -5
+```
